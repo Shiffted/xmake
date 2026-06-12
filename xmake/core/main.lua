@@ -241,7 +241,8 @@ function main._exit(ok, errors)
     local retval = 0
     if not ok then
         retval = -1
-        if errors then
+        -- lua 5.5 replaces a nil error with a placeholder
+        if errors and not tostring(errors):endswith("<no error object>") then
             utils.error(errors)
         end
     end
